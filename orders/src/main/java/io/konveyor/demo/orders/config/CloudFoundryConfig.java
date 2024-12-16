@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CloudFoundryConfig {
-	
+
 	@Bean
 	DefaultConnectionContext connectionContext(@Value("${cf.apiHost}") String apiHost) {
 	    return DefaultConnectionContext.builder()
@@ -33,7 +33,7 @@ public class CloudFoundryConfig {
 	        .username(username)
 	        .build();
 	}
-	
+
 	@Bean
 	ReactorCloudFoundryClient cloudFoundryClient(ConnectionContext connectionContext, TokenProvider tokenProvider) {
 	    return ReactorCloudFoundryClient.builder()
@@ -41,7 +41,7 @@ public class CloudFoundryConfig {
 	        .tokenProvider(tokenProvider)
 	        .build();
 	}
-	
+
 	@Bean
 	ReactorDopplerClient dopplerClient(ConnectionContext connectionContext, TokenProvider tokenProvider) {
 	    return ReactorDopplerClient.builder()
@@ -57,13 +57,13 @@ public class CloudFoundryConfig {
 	        .tokenProvider(tokenProvider)
 	        .build();
 	}
-	
+
 	@Bean
 	DefaultCloudFoundryOperations cloudFoundryOperations(CloudFoundryClient cloudFoundryClient,
 	                                                     DopplerClient dopplerClient,
 	                                                     UaaClient uaaClient,
-	                                                     @Value("${cf.organization}") String organization,
-	                                                     @Value("${cf.space}") String space) {
+	                                                     @Value("${cf.defaultOrganization}") String organization,
+	                                                     @Value("${cf.defaultSpace}") String space) {
 	    return DefaultCloudFoundryOperations.builder()
 	            .cloudFoundryClient(cloudFoundryClient)
 	            .dopplerClient(dopplerClient)
